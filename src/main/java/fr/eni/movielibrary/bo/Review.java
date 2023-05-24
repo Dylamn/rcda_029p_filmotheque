@@ -9,9 +9,12 @@ public class Review {
     Movie movie;
 
 
-    public Review(long id, int note, String comment) {
+    public Review(long id, int note, String comment, Movie movie) {
         this.id = id;
         this.rating = note;
         this.comment = comment;
+        this.movie = movie;
     }
+
+
 }

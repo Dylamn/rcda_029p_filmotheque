@@ -26,4 +26,9 @@ public class Genre {
         this.id = id;
         this.label = label;
     }
+
+    @Override
+    public String toString() {
+        return String.format("<Genre id=%d label=%s>", id, label);
+    }
 }

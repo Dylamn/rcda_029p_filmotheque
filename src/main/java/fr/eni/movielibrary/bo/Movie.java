@@ -89,10 +89,6 @@ public class Movie {
     }
     //#endregion
 
-    public Movie() {
-
-    }
-
     public Movie(long id, String title, int year, int duration, String synopsis) {
         this.id = id;
         this.title = title;
@@ -118,6 +114,14 @@ public class Movie {
 
     @Override
     public String toString() {
-        return String.format("Titre : %s | Année : %s | Durée : %dmins", this.title, this.year, this.duration);
+        return String.format(
+                "<Movie id=%d, title=%s, synopsis=%s, producer=%s, actors=%s, genre=%s>",
+                id,
+                title,
+                synopsis,
+                producer.toString(),
+                actors.toString(),
+                genre.toString()
+        );
     }
 }

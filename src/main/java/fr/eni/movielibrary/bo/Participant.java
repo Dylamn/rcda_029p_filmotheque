@@ -36,4 +36,9 @@ public class Participant {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
+    @Override
+    public String toString() {
+        return String.format("<Participant id=%d fullname=%s %s>", id, firstname, lastname);
+    }
 }

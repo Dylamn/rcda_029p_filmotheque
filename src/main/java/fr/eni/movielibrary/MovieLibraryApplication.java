@@ -27,7 +27,6 @@ public class MovieLibraryApplication {
 		for (Movie movie : lstMovies) {
 			System.out.println(movie);
 		}
-
 	}
 
 }
