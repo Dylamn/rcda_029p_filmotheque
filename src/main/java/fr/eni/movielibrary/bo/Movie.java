@@ -67,7 +67,18 @@ public class Movie {
     public List<Participant> getActors() {
         return actors;
     }
+    
+    public String getActorsString() {
+        String actorString = "";
 
+        for (Participant actor :
+                this.actors) {
+            actorString += actor.getFullName() + "\n";
+        }
+
+        return actorString;
+    }
+    
     public void setActors(List<Participant> actors) {
         this.actors = actors;
     }

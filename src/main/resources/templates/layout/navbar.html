@@ -1,0 +1,21 @@
+<nav class="uk-navbar-container uk-padding-large uk-padding-remove-vertical" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/movies">Films</a></li>
+        </ul>
+    </div>
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li>Bonjour, <span th:text="${loggedUser.firstname}"></span></li>
+            <li th:if="${loggedUser}">
+                <form action="/logout" method="post">
+                    <button class="uk-text-uppercase" style="background-color: unset; font-size: 14px; color: #999; border: none;" type="submit">Déconnexion</button>
+                </form>
+            </li>
+            <li th:unless="${loggedUser}">
+                <a href="/login">Connexion</a>
+            </li>
+        </ul>
+    </div>
+</nav>

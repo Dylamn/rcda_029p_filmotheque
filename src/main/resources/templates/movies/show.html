@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="/uikit/css/uikit.min.css">
+    <script src="/uikit/js/uikit.min.js"></script>
+    <script src="/uikit/js/uikit-icons.min.js"></script>
+
+    <title th:text="${movie.getTitle()}"></title>
+
+    <style>
+        .container {
+            margin: 0 auto;
+        }
+
+        .container-small {
+            max-width: 768px;
+        }
+
+        p.movie-item {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        p.movie-item > input, p.movie-item > textarea {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<th:block th:include="layout/navbar"></th:block>
+<div class="uk-section">
+    <div class="container container-small">
+        <h1>Film details</h1>
+        <form th:action="@{'/movies/' + ${movie.getId()}}" method="post" th:object="${movie}" class="form-grid">
+            <p class="movie-item">
+                <label for="genre">Genre</label>
+                <input type="text" class="uk-input" name="genre" th:value="*{genre.getLabel()}" id="genre">
+            </p>
+            <p class="movie-item">
+                <label for="year">Année</label>
+                <input type="text" class="uk-input" name="year" th:field="*{year}" id="year">
+            </p>
+            <p class="movie-item">
+                <label for="title">Titre</label>
+                <input type="text" class="uk-input" name="title" th:field="*{title}" id="title">
+            </p>
+            <p class="movie-item">
+                <label for="duration">Durée</label>
+                <input type="number" class="uk-input" name="duration" th:field="*{duration}" id="duration">
+            </p>
+            <p class="movie-item">
+                <label for="producer">Producteur</label>
+                <input type="text" class="uk-input" name="producer" th:value="*{producer.getFullName()}" id="producer">
+            </p>
+            <p class="movie-item">
+                <label for="actors">Acteurs</label>
+                <select name="actors" id="actors" multiple>
+                    <option th:each="actor : *{actors}"
+                            th:value="${actor.getId()}"
+                            th:text="${actor.getFullName()}"></option>
+                </select>
+<!--                <textarea name="actors" id="actors" class="uk-textarea" th:text="*{getActorsString()}"></textarea>-->
+            </p>
+            <p class="movie-item">
+                <label for="synopsis">Synopsis</label>
+                <textarea name="synopsis" id="synopsis" class="uk-textarea" th:text="*{synopsis}"></textarea>
+            </p>
+                <button type="submit" class="uk-button uk-button-default">Enregistrer</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -2,6 +2,8 @@ package fr.eni.movielibrary.bo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 
 public class Member {
     long id;
@@ -88,5 +90,14 @@ public class Member {
     ) {
         this(_id, _firstname, _lastname, _login, _password, _isAdmin);
         reviews.addAll(_reviews);
+    }
+
+    public static Member login(String username, String password, Map<String, Member> fake_db) {
+        Member member = fake_db.get(username);
+        if (member == null || !member.password.equals(password)) {
+            return null;
+        }
+
+        return member;
     }
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="/uikit/css/uikit.min.css">
+    <script src="/uikit/js/uikit.min.js"></script>
+    <script src="/uikit/js/uikit-icons.min.js"></script>
+
+    <title>Liste de films</title>
+</head>
+<body>
+<th:block th:include="layout/navbar"></th:block>
+<div class="uk-container uk-container-large uk-padding-large uk-padding-remove-horizontal">
+    <h1>Les films de l'ENI</h1>
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+        <div th:each="movie : ${movieList}" class="uk-width-1-2@m">
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-header">
+                    <div class="uk-width-auto">
+                        <h3 th:text="${movie.getTitle()}"></h3>
+                        <img class="uk-text-center" src="https://placehold.co/400x200" alt="A film">
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <p th:text="${movie.getSynopsis()}"></p>
+                    <p>Année : <span th:text="${movie.getYear()}"></span></p>
+                    <p>Genre : <span th:text="${movie.getGenre().getLabel()}"></span></p>
+                </div>
+                <div class="uk-card-footer">
+                    <a th:href="@{'/movies/' + ${movie.getId()}}" class="uk-button uk-button-text">Détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

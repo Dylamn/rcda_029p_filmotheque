@@ -31,11 +31,17 @@ public class Participant {
     }
     //#endregion
 
-    public Participant(long id, String firstname, String lastname) {
+    public Participant(long id, String lastname,  String firstname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
+    public String getFullName() {
+        return String.format("%s %s", firstname, lastname);
+    }
+
+
 
     @Override
     public String toString() {
