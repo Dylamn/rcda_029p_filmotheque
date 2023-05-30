@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:include="layout/head"></th:block>
+
+    <title>Ajout d'un film</title>
+</head>
+<body>
+<th:block th:include="layout/navbar"></th:block>
+<div class="uk-container">
+    <h1>Ajout d'un film</h1>
+
+    <th:block th:if="${errors != null && errors.size() > 0}">
+        <div th:each="error : ${errors}" class="uk-alert-danger" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p th:text="${error}"></p>
+        </div>
+    </th:block>
+
+    <form action="/movies" method="post" th:object="${newMovie}">
+        <label for="title">Titre</label>
+        <input type="text" th:field="${movie.title}" name="title" id="title" class="uk-input" required>
+
+        <!--        <label for="genre">Genre</label>-->
+        <!--        <input type="text" th:field="${movie.genre.label}" name="genre" id="genre" class="uk-input" required>-->
+
+        <!--        <label for="producer">Réalisateur</label>-->
+        <!--        <input type="text" th:field="${movie.producer}" name="producer" id="producer" class="uk-input" required>-->
+
+        <label for="duration">Durée</label>
+        <input type="number" min="1" th:field="${movie.duration}" name="duration" class="uk-input" id="duration">
+
+        <label for="year">Année de sortie</label>
+        <input type="number" min="1" th:field="${movie.year}" name="year" id="year" class="uk-input" placeholder="2023">
+
+        <label for="synopsis">Synopsis</label>
+        <textarea th:field="${movie.synopsis}" name="synopsis" id="synopsis" class="uk-textarea" cols="30" rows="5"
+                  minlength="20"
+                  maxlength="250"></textarea>
+
+        <!--        <label for="actors">Acteurs</label>-->
+        <!--        <select multiple name="actors" id="actors" class="uk-select">-->
+        <!--            <option value="John Travolta">John Travolta</option>-->
+        <!--            <option value="John Doe">John Doe</option>-->
+        <!--        </select>-->
+
+        <button type="submit" class="uk-margin-top uk-margin-bottom uk-button uk-button-primary">Ajouter</button>
+    </form>
+</div>
+</body>
+</html>

@@ -3,7 +3,10 @@ package fr.eni.movielibrary.ihm;
 import fr.eni.movielibrary.bo.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.HashMap;
@@ -18,7 +21,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+    public String login(
+            @RequestParam("username") String username, @RequestParam("password") String password, Model model
+    ) {
         Map<String, Member> fake_users = new HashMap<>();
         fake_users.put("johnd", new Member(
                 1, "john", "doe", "johnd", "example", false

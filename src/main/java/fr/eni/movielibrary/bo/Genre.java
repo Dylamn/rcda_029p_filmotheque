@@ -22,6 +22,10 @@ public class Genre {
     }
     //#endregion
 
+    public Genre() {
+
+    }
+
     public Genre(long id, String label) {
         this.id = id;
         this.label = label;

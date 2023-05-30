@@ -26,11 +26,11 @@
                 </div>
                 <div class="uk-card-body">
                     <p th:text="${movie.getSynopsis()}"></p>
-                    <p>Année : <span th:text="${movie.getYear()}"></span></p>
-                    <p>Genre : <span th:text="${movie.getGenre().getLabel()}"></span></p>
+                    <p>Année : <span th:text="${movie?.getYear()}"></span></p>
+                    <p>Genre : <span th:text="${movie?.getGenre()?.getLabel()}"></span></p>
                 </div>
                 <div class="uk-card-footer">
-                    <a th:href="@{'/movies/' + ${movie.getId()}}" class="uk-button uk-button-text">Détails</a>
+                    <a th:href="@{'/movies/' + ${movie?.getId()}}" class="uk-button uk-button-text">Détails</a>
                 </div>
             </div>
         </div>

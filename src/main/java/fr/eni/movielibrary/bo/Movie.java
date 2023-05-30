@@ -1,5 +1,6 @@
 package fr.eni.movielibrary.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
@@ -8,7 +9,7 @@ public class Movie {
     private int year;
     private int duration;
     private String synopsis;
-     
+
     // Relationships
     private Participant producer;
     private List<Participant> actors;
@@ -67,18 +68,18 @@ public class Movie {
     public List<Participant> getActors() {
         return actors;
     }
-    
+
     public String getActorsString() {
-        String actorString = "";
+        StringBuilder actorString = new StringBuilder();
 
         for (Participant actor :
                 this.actors) {
-            actorString += actor.getFullName() + "\n";
+            actorString.append(actor.getFullName()).append("\n");
         }
 
-        return actorString;
+        return actorString.toString();
     }
-    
+
     public void setActors(List<Participant> actors) {
         this.actors = actors;
     }
@@ -100,12 +101,20 @@ public class Movie {
     }
     //#endregion
 
+    //#region Constructors
+    public Movie() {
+
+    }
+
     public Movie(long id, String title, int year, int duration, String synopsis) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.duration = duration;
         this.synopsis = synopsis;
+        this.genre = new Genre();
+        this.producer = new Participant();
+        this.actors = new ArrayList<>();
     }
 
     public Movie(
@@ -122,7 +131,7 @@ public class Movie {
         this.genre = genre;
         this.reviews = reviews;
     }
-
+    //#endregion
     @Override
     public String toString() {
         return String.format(

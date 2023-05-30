@@ -5,6 +5,7 @@ public class Participant {
     private String firstname;
     private String lastname;
 
+
     //#region Getters/Setters
     public long getId() {
         return id;
@@ -31,6 +32,10 @@ public class Participant {
     }
     //#endregion
 
+    public Participant() {
+
+    }
+    
     public Participant(long id, String lastname,  String firstname) {
         this.id = id;
         this.firstname = firstname;
