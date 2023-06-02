@@ -1,19 +1,42 @@
 package fr.eni.movielibrary.bo;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "Le titre ne peut pas être vide")
     private String title;
+
+    @Min(value = 1900, message = "L'année doit être supérieure à 1900")
     private int year;
+
+    @Digits(fraction = 6, integer = 3)
     private int duration;
+
+    @NotBlank
+    @Size(min = 20, max = 250, message = "Le synopsis doit faire entre 20 et 250 caractères")
     private String synopsis;
 
     // Relationships
+    @ManyToOne
+    @NotNull(message = "Un réalisateur doit être sélectionné")
     private Participant producer;
+
+    @ManyToMany
     private List<Participant> actors;
+
+    @OneToOne
+    @NotNull(message = "Un genre doit être sélectionné")
     private Genre genre;
+
+    @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
 
     //#region Getters/Setters
@@ -103,18 +126,19 @@ public class Movie {
 
     //#region Constructors
     public Movie() {
-
+        this.reviews = new ArrayList<>();
+        this.genre = new Genre();
+        this.producer = new Participant();
+        this.actors = new ArrayList<>();
     }
 
     public Movie(long id, String title, int year, int duration, String synopsis) {
+        this();
         this.id = id;
         this.title = title;
         this.year = year;
         this.duration = duration;
         this.synopsis = synopsis;
-        this.genre = new Genre();
-        this.producer = new Participant();
-        this.actors = new ArrayList<>();
     }
 
     public Movie(
@@ -132,6 +156,7 @@ public class Movie {
         this.reviews = reviews;
     }
     //#endregion
+
     @Override
     public String toString() {
         return String.format(
@@ -143,5 +168,9 @@ public class Movie {
                 actors.toString(),
                 genre.toString()
         );
+    }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
     }
 }

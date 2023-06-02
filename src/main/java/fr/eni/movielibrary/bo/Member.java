@@ -1,11 +1,14 @@
 package fr.eni.movielibrary.bo;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+@Entity
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String firstname;
     String lastname;
@@ -72,8 +75,12 @@ public class Member {
     //#endregion
 
     // Relationships
+    @OneToMany(mappedBy = "member")
     List<Review> reviews;
 
+    public Member() {
+        this.reviews = new ArrayList<>();
+    }
     public Member(long id, String firstname, String lastname, String login, String password, boolean isAdmin) {
         this.id = id;
         this.firstname = firstname;

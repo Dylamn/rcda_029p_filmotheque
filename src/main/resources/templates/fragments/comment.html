@@ -1,0 +1,9 @@
+<article class="uk-comment uk-padding uk-border-rounded" style="background-color:#eee;">
+    <header class="uk-comment-header">
+        <h4 class="uk-comment-title">Author</h4>
+        <ul class="uk-comment-meta uk-subnav">
+            <li th:text="${review.rating} + '/5'"></li>
+        </ul>
+    </header>
+    <div class="uk-comment-body" th:text="${review.comment}"></div>
+</article>

@@ -14,39 +14,82 @@
 <div class="uk-container">
     <h1>Ajout d'un film</h1>
 
-    <th:block th:if="${errors != null && errors.size() > 0}">
-        <div th:each="error : ${errors}" class="uk-alert-danger" uk-alert>
-            <a class="uk-alert-close" uk-close></a>
-            <p th:text="${error}"></p>
-        </div>
-    </th:block>
+    <!--    <th:block th:if="${errors != null && errors.size() > 0}">-->
+    <!--        <div th:each="error : ${errors}" class="uk-alert-danger" uk-alert>-->
+    <!--            <a class="uk-alert-close" uk-close></a>-->
+    <!--            <p th:text="${error}"></p>-->
+    <!--        </div>-->
+    <!--    </th:block>-->
 
     <form action="/movies" method="post" th:object="${newMovie}">
         <label for="title">Titre</label>
-        <input type="text" th:field="${movie.title}" name="title" id="title" class="uk-input" required>
+        <input type="text" th:field="${movie.title}" name="title" id="title" class="uk-input">
+        <th:block th:if="${#fields.hasErrors('title')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
 
-        <!--        <label for="genre">Genre</label>-->
-        <!--        <input type="text" th:field="${movie.genre.label}" name="genre" id="genre" class="uk-input" required>-->
+        <label for="genre">Genre</label>
+        <select id="genre" name="genre" th:field="${movie.genre}" class="uk-select">
+            <th:block th:each="genre : ${genres}">
+                <option th:value="${genre.getId()}" th:text="${genre.getLabel()}"></option>
+            </th:block>
+        </select>
+        <th:block th:if="${#fields.hasErrors('genre')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('genre')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
 
-        <!--        <label for="producer">Réalisateur</label>-->
-        <!--        <input type="text" th:field="${movie.producer}" name="producer" id="producer" class="uk-input" required>-->
+        <label for="producer">Réalisateur</label>
+        <select name="producer" id="producer" class="uk-select">
+            <th:block th:each="participant : ${participants}">
+                <option th:value="${participant.getId()}" th:text="${participant.getFullName()}"></option>
+            </th:block>
+        </select>
+        <th:block th:if="${#fields.hasErrors('producer')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('producer')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
 
         <label for="duration">Durée</label>
         <input type="number" min="1" th:field="${movie.duration}" name="duration" class="uk-input" id="duration">
+        <th:block th:if="${#fields.hasErrors('duration')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('duration')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
 
         <label for="year">Année de sortie</label>
         <input type="number" min="1" th:field="${movie.year}" name="year" id="year" class="uk-input" placeholder="2023">
-
+        <th:block th:if="${#fields.hasErrors('year')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('year')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
         <label for="synopsis">Synopsis</label>
         <textarea th:field="${movie.synopsis}" name="synopsis" id="synopsis" class="uk-textarea" cols="30" rows="5"
                   minlength="20"
                   maxlength="250"></textarea>
+        <th:block th:if="${#fields.hasErrors('synopsis')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('synopsis')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
 
-        <!--        <label for="actors">Acteurs</label>-->
-        <!--        <select multiple name="actors" id="actors" class="uk-select">-->
-        <!--            <option value="John Travolta">John Travolta</option>-->
-        <!--            <option value="John Doe">John Doe</option>-->
-        <!--        </select>-->
+        <label for="actors">Acteurs</label>
+        <select multiple name="actors" id="actors" class="uk-select">
+            <th:block th:each="participant : ${participants}">
+                <option th:value="${participant.getId()}" th:text="${participant.getFullName()}"></option>
+            </th:block>
+        </select>
+        <th:block th:if="${#fields.hasErrors('actors')}">
+            <ul class="uk-text-danger">
+                <li th:each="error : ${#fields.errors('actors')}" th:text="${error}"></li>
+            </ul>
+        </th:block>
 
         <button type="submit" class="uk-margin-top uk-margin-bottom uk-button uk-button-primary">Ajouter</button>
     </form>

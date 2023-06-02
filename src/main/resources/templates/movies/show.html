@@ -12,14 +12,6 @@
     <title th:text="${movie.getTitle()}"></title>
 
     <style>
-        .container {
-            margin: 0 auto;
-        }
-
-        .container-small {
-            max-width: 768px;
-        }
-
         p.movie-item {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -34,8 +26,8 @@
 <body>
 <th:block th:include="layout/navbar"></th:block>
 <div class="uk-section">
-    <div class="container container-small">
-        <h1>Film details</h1>
+    <div class="uk-container">
+        <h1>Détails du film</h1>
         <form th:action="@{'/movies/' + ${movie.getId()}}" method="post" th:object="${movie}" class="form-grid">
             <p class="movie-item">
                 <label for="genre">Genre</label>
@@ -59,18 +51,40 @@
             </p>
             <p class="movie-item">
                 <label for="actors">Acteurs</label>
-                <select name="actors" id="actors" multiple>
+                <select name="actors" id="actors" class="uk-select" multiple>
                     <option th:each="actor : *{actors}"
                             th:value="${actor.getId()}"
                             th:text="${actor.getFullName()}"></option>
                 </select>
-<!--                <textarea name="actors" id="actors" class="uk-textarea" th:text="*{getActorsString()}"></textarea>-->
             </p>
             <p class="movie-item">
                 <label for="synopsis">Synopsis</label>
                 <textarea name="synopsis" id="synopsis" class="uk-textarea" th:text="*{synopsis}"></textarea>
             </p>
-                <button type="submit" class="uk-button uk-button-default">Enregistrer</button>
+            <button type="submit" class="uk-button uk-button-default">Enregistrer</button>
+        </form>
+
+        <th:block th:if="${movie.reviews != null && !movie.reviews.isEmpty()}">
+            <hr class="uk-divider-icon">
+            <section id="reviews" class="uk-comment-list">
+                <h3>Avis</h3>
+                <th:block th:each="review : ${movie?.reviews}">
+                    <th:block th:include="fragments/comment"></th:block>
+                </th:block>
+            </section>
+        </th:block>
+
+        <hr class="uk-divider-icon">
+        <h4>Ajouter un avis</h4>
+        <form action="/reviews" method="post" th:object="${'newReview'}">
+            <input class="uk-input" type="hidden" name="_movieId" th:value="${movie.getId()}">
+            <label class="uk-form-label" for="rating">Note</label>
+            <input type="range" class="uk-range" th:field="${emptyReview.rating}" name="rating" id="rating" min="0"
+                   max="5" step="1">
+            <label class="uk-form-label" for="comment">Commentaire</label>
+            <textarea th:field="${emptyReview.comment}" class="uk-textarea" name="comment" id="comment"
+                      placeholder="Votre commentaire"></textarea>
+            <button class="uk-margin-top uk-button uk-button-default" type="submit">Envoyer</button>
         </form>
     </div>
 </div>

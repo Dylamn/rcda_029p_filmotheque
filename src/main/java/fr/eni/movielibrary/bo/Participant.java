@@ -1,10 +1,19 @@
 package fr.eni.movielibrary.bo;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
 public class Participant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstname;
     private String lastname;
 
+    // Relationships
+    @ManyToMany(mappedBy = "actors")
+    List<Movie> actorMovies;
 
     //#region Getters/Setters
     public long getId() {
